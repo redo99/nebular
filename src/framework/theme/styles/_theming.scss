@@ -13,7 +13,7 @@
 @import 'core/functions';
 
 $nb-enabled-themes: () !global;
-$nb-enable-css-variables: false !global;
+$nb-enable-css-variables: true !global;
 
 $nb-themes: () !global;
 $nb-themes-non-processed: () !global;
@@ -38,10 +38,9 @@ $nb-themes-export: () !global;
 @function convert-to-css-variables($variables) {
   $result: ();
   @each $var, $value in $variables {
-    $result: map-set($result, $var, '--var(#{$var})');
+    $result: map-set($result, $var, unquote('var(--#{$var})'));
   }
 
-  @debug $result;
   @return $result;
 }
 
@@ -101,7 +100,7 @@ $nb-themes-export: () !global;
 @mixin install-css-variables($theme-name, $variables) {
   .nb-theme-#{$theme-name} {
     @each $var, $value in $variables {
-      --#{$var}: $value;
+      --#{$var}: #{$value};
     }
   }
 }
@@ -182,6 +181,9 @@ $nb-themes-export: () !global;
   $themes-to-install: get-enabled-themes();
 
   @each $theme-name, $theme in $themes-to-install {
+    @if ($nb-enable-css-variables) {
+      @include install-css-variables($theme-name, $theme);
+    }
     .nb-theme-#{$theme-name} {
       $theme: set-global-theme-vars($theme, $theme-name);
       @content;
