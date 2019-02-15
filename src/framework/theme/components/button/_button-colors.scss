@@ -98,15 +98,15 @@
 }
 
 @function btn-hover-color($bg, $percentage: 14%) {
-  @return tint(nb-theme($bg), $percentage);
+  @return $bg;
 }
 
 @function btn-focus-color($bg, $percentage: 14%) {
-  @return tint(nb-theme($bg), $percentage);
+  @return $bg;
 }
 
 @function btn-active-color($bg, $percentage: 14%) {
-  @return shade(nb-theme($bg), $percentage);
+  @return $bg;
 }
 
 @mixin btn-outline-focus($focus) {

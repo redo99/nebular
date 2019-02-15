@@ -53,6 +53,31 @@ $nb-themes-export: () !global;
   @return $theme;
 }
 
+@function prepare-main-colors($theme) {
+  $color-keys: (
+    color-primary: 20deg,
+    color-success:  20deg,
+    color-info: -10deg,
+    color-warning: 10deg,
+    color-danger: -20deg,
+  );
+
+  @each $key, $degree in $color-keys {
+    $color: map-get($theme, $key);
+
+    $color-light: tint($color, 14%);
+    $color-dark: shade($color, 14%);
+    $color-left: adjust-hue($color, 14%);
+    $color-middle: mix($color-left, $color);
+
+    $theme: map-set($theme, #{$key}-light, $color-light);
+    $theme: map-set($theme, #{$key}-dark, $color-dark);
+    $theme: map-set($theme, #{$key}-left, $color-left);
+    $theme: map-set($theme, #{$key}-middle, $color-middle);
+  }
+  @return $theme;
+}
+
 @function nb-register-theme($theme, $name, $default: null) {
 
   $theme-data: ();
@@ -77,6 +102,8 @@ $nb-themes-export: () !global;
   @each $key, $value in $theme {
     $theme-parsed: map-set($theme-parsed, $key, nb-get-value($theme, $key, $value));
   }
+
+  $theme-parsed: prepare-main-colors($theme-parsed);
 
   // enable right away when installed
   $theme-parsed: set-global-theme-vars($theme-parsed, $name);

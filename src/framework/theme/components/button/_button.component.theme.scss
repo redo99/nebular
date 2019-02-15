@@ -6,9 +6,9 @@
 
 @import './button-sizes';
 @import './button-colors';
-@import './button-heroes';
+//@import './button-heroes';
 @import './button-outlines';
-@import './button-shapes';
+//@import './button-shapes';
 
 @mixin nb-buttons-theme() {
   [nbButton] {
@@ -24,12 +24,12 @@
       cursor: nb-theme(btn-cursor);
     }
     @include btn-medium();
-    @include btn-primary();
+    //@include btn-primary();
 
     @include btn-sizes();
     @include btn-colors();
-    @include btn-heroes();
+    //@include btn-heroes();
     @include btn-outlines();
-    @include btn-shapes();
+    //@include btn-shapes();
   }
 }

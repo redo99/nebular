@@ -4,8 +4,11 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 
-import { Component, Input, HostBinding, HostListener, Renderer2, ElementRef } from '@angular/core';
+import { Component, Input, HostBinding, HostListener, Renderer2, ElementRef, Inject } from '@angular/core';
+
 import { convertToBoolProperty } from '../helpers';
+import { NB_WINDOW } from '../../theme.options';
+import { NbColorHelper } from '../../services/color.helper';
 
 /**
  * Basic button component.
@@ -296,8 +299,33 @@ export class NbButtonComponent {
     }
   }
 
+
+  @HostListener('mouseenter', ['$event'])
+  onHover(event: Event) {
+    const bgColor = this.window.getComputedStyle(this.hostElement.nativeElement).backgroundColor;
+    const hoverBgColor = NbColorHelper.tint(bgColor, 14);
+    this.hostElement.nativeElement.style.backgroundColor = hoverBgColor;
+  }
+
   constructor(
     protected renderer: Renderer2,
     protected hostElement: ElementRef<HTMLElement>,
+    @Inject(NB_WINDOW) protected window: any,
   ) {}
+
+  // ngAfterViewInit() {
+    // const bgColor = this.window.getComputedStyle(this.hostElement.nativeElement).backgroundColor;
+    // const hoverBgColor = NbColorHelper.tint(bgColor, 14);
+    //
+    // const css = `[nbButton]:hover { background-color: ${hoverBgColor} }`;
+    // const style: any = document.createElement('style');
+    //
+    // if (style.styleSheet) {
+    //   style.styleSheet.cssText = css;
+    // } else {
+    //   style.appendChild(document.createTextNode(css));
+    // }
+    // document.getElementsByTagName('head')[0].appendChild(style);
+
+  // }
 }

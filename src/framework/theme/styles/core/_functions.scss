@@ -10,7 +10,7 @@
 /// @param {Number} $percentage - percentage of `$color` in returned color
 /// @return {Color}
 @function tint($color, $percentage) {
-  @warn '`tint` is impossible to use with css-variables. Deprecated and will be removed as of 5.0.0';
+  //@warn '`tint` is impossible to use with css-variables. Deprecated and will be removed as of 5.0.0';
   @return mix(white, $color, $percentage);
 }
 
@@ -20,7 +20,7 @@
 /// @param {Number} $percentage - percentage of `$color` in returned color
 /// @return {Color}
 @function shade($color, $percentage) {
-  @warn '`shade` is impossible to use with css-variables. Deprecated and will be removed as of 5.0.0';
+  //@warn '`shade` is impossible to use with css-variables. Deprecated and will be removed as of 5.0.0';
   @return mix(black, $color, $percentage);
 }
 
